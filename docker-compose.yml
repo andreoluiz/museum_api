@@ -4,9 +4,11 @@ services:
   db:
     image: postgres
     restart: always
+    volumes:
+     - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_PASSWORD: 3834
     ports:
-      - "5432:5432"
+      - 5432:5432
+volumes:
+  pgdata:
