@@ -21,9 +21,11 @@ func (r *Repository) Insert(post internal.Post) error {
 
 	_, err := r.Conn.Exec(
 		ctx,
-		"INSERT INTO posts (username, body) VALUES ($1, $2)",
-		post.Username,
-		post.Body)
+		"INSERT INTO gerente (nome, data_nascimento, cpf, senha) VALUES ($1, $2, $3, $4)",
+		post.Nome,
+		post.Data_nascimento,
+		post.Cpf,
+		post.Senha)
 
 	return err
 
@@ -52,8 +54,8 @@ func (r *Repository) FindOneByID(id uuid.UUID) (internal.Post, error) {
 	var post internal.Post
 	err := r.Conn.QueryRow(
 		ctx,
-		"SELECT username, body, created_at FROM posts WHERE id = $1",
-		id).Scan(&post.Username, &post.Body, &post.CreatedAt)
+		"SELECT * FROM gerente WHERE id = $1",
+		id).Scan(&post.Nome, &post.Data_nascimento, &post.Cpf, &post.Senha)
 
 	if err == pgx.ErrNoRows {
 		return internal.Post{}, ErrPostNotFound

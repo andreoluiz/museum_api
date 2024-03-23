@@ -1,14 +1,13 @@
 package internal
 
 import (
-	"time"
-
 	"github.com/google/uuid"
 )
 
 type Post struct {
-	ID        uuid.UUID `json:"-"`
-	Username  string    `json:"username"`
-	Body      string    `json:"body"`
-	CreatedAt time.Time `json: created_at`
+	ID              uuid.UUID `json:"-"`
+	Nome            string    `json:"nome"`
+	Data_nascimento string    `json:"data_nascimento"`
+	Cpf             string    `json:"cpf"`
+	Senha           string    `json:"senha"`
 }

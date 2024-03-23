@@ -1,10 +1,21 @@
 CREATE SCHEMA IF NOT EXISTS virtualArtExplore;
 
+
 CREATE TABLE IF NOT EXISTS gerente (
     id SERIAL PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     data_nascimento DATE,
-    cpf VARCHAR(14) UNIQUE
+    cpf VARCHAR(14) UNIQUE,
+    senha VARCHAR(50) NOT NULL
+
+);
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    data_nascimento DATE,
+    cpf VARCHAR(14) UNIQUE,
+    senha VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS museu (

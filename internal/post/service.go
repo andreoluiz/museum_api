@@ -2,14 +2,13 @@ package post
 
 import (
 	"errors"
-	"unicode/utf8"
 
 	"github.com/VirtualArtExplore/api/internal"
 	"github.com/google/uuid"
 )
 
-var ErrPostBodyEmpty = errors.New("post body is empty")
-var ErrPostBodyExceedLimit = errors.New("post body exceeds limit")
+var ErrPostNameEmpty = errors.New("post name is empty")
+var ErrPostPasswordEmpty = errors.New("post password ist limit")
 var ErrPostNotFound = errors.New("post id not found")
 
 type Service struct {
@@ -17,13 +16,14 @@ type Service struct {
 }
 
 func (p Service) Create(post internal.Post) error {
-	if post.Body == "" {
-		return ErrPostBodyEmpty
+	if post.Nome == "" {
+		return ErrPostNameEmpty
 	}
 
-	if utf8.RuneCountInString(post.Body) > 148 {
-		return ErrPostBodyExceedLimit
+	if post.Senha == "" {
+		return ErrPostPasswordEmpty
 	}
+
 	return p.Repository.Insert(post)
 }
 
