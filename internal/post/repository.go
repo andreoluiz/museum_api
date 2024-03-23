@@ -54,7 +54,7 @@ func (r *Repository) FindOneByID(id uuid.UUID) (internal.Post, error) {
 	var post internal.Post
 	err := r.Conn.QueryRow(
 		ctx,
-		"SELECT * FROM gerente WHERE id = $1",
+		"SELECT nome, data_nascimento, cpf FROM gerente WHERE id = $1",
 		id).Scan(&post.Nome, &post.Data_nascimento, &post.Cpf, &post.Senha)
 
 	if err == pgx.ErrNoRows {
