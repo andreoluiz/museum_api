@@ -4,26 +4,29 @@ import (
 	"log"
 	"museum-api/controllers"
 	"museum-api/database"
+	"museum-api/models"
 	"museum-api/utils"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
 func initConfig() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file")
+	viper.SetConfigFile(".env")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatalf("Error reading .env file: %v", err)
 	}
-
-	viper.SetConfigType("env")
-	viper.AutomaticEnv()
 }
 
 func main() {
 	initConfig()
 	database.InitDB()
-	database.RunMigrations()
+
+	database.AutoMigrate(
+		&models.Museum{},
+		&models.Manager{},
+		&models.Artwork{},
+	)
 
 	r := gin.Default()
 
